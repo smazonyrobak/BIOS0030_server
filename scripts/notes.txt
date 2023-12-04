@@ -2,7 +2,7 @@
 
 ### 1. Build the Docker Image
 ```bash
-docker build -t cfe-jupyter -f conf/Dockerfile .
+docker build -t cfe-jupyter -f conf/Dockerfile .docke
 ```
 This command builds a Docker image named `cfe-jupyter` from a Dockerfile located in the `conf` directory.
 Run this from the root directory of your project.
@@ -47,3 +47,25 @@ docker system prune -a
 ```
 Removes unused Docker images and containers. Use with caution, as this will delete all stopped
 containers, unused networks, dangling images, and build caches.
+
+###8 Stop a container
+docker stop d98bccd37a96
+
+### 9. Remove unwanted container
+docker rm d98bccd37a96
+
+### 10. Remove unwanted image
+docker rmi -f cfe-jupyter:latest
+removing images
+
+######################From building docker image to running the server on Heroku########################
+1. heroku login
+2. heroku container:login
+3. docker build --platform linux/amd64 -t bios0030_server -f conf/Dockerfile .
+4. docker tag bios0030_server registry.heroku.com/bios0030-cogniapp/web
+5. docker push registry.heroku.com/bios0030-cogniapp/web
+6. heroku container:release web -a bios0030-cogniapp
+7. heroku open -a bios0030-cogniapp
+
+
+

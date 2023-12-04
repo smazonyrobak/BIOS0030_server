@@ -34,7 +34,7 @@ COPY conf ./conf
 COPY scripts/entrypoint.sh ./scripts/
 RUN chmod +x ./scripts/entrypoint.sh
 
-# Expose the port Jupyter will run on
+# Expose the port Jupyter will run on (for local testing; Heroku will assign its own port)
 EXPOSE 8888
 
 # Run entrypoint.sh when the container launches which should start Jupyter
