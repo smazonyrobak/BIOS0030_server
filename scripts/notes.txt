@@ -1,0 +1,49 @@
+## Docker Commands for Building and Running `cfe-jupyter` Image
+
+### 1. Build the Docker Image
+```bash
+docker build -t cfe-jupyter -f conf/Dockerfile .
+```
+This command builds a Docker image named `cfe-jupyter` from a Dockerfile located in the `conf` directory.
+Run this from the root directory of your project.
+
+### 2. List the Dockerfile to Confirm its Presence
+```bash
+ls -l Dockerfile
+```
+This command lists the details of the Dockerfile in the current directory to ensure it exists before
+attempting to build the Docker image. Execute this in the directory where your Dockerfile resides.
+
+### 3. Make the Run Script Executable
+```bash
+chmod +x scripts/d_run.sh
+```
+Before running the `d_run.sh` script, ensure it is executable. This command changes the script's
+permissions to allow execution.
+
+### 4. Run the Docker Container Using the Custom Script
+```bash
+./scripts/d_run.sh
+```
+Execute this script to run your Docker container. The script should contain the docker run command
+with appropriate configurations.
+
+### 5. Run the Docker Container Interactively
+```bash
+docker run -it cfe-jupyter /bin/bash
+```
+Use this command to start the `cfe-jupyter` Docker container in interactive mode with a bash shell.
+It's useful for exploring the container or executing commands manually.
+
+### 6. View Docker Images
+```bash
+docker images
+```
+List all Docker images on your system to view the `cfe-jupyter` image along with any others.
+
+### 7. Clean Up Unwanted Docker Images and Containers
+```bash
+docker system prune -a
+```
+Removes unused Docker images and containers. Use with caution, as this will delete all stopped
+containers, unused networks, dangling images, and build caches.
