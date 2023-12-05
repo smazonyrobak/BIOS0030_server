@@ -27,15 +27,26 @@ RUN pip install -r requirements.txt
 # Copy the project files into the container at /app/cognitive_tests_group_11
 COPY cognitive_tests_group_11 ./cognitive_tests_group_11
 
+# Set the working directory to /app/cognitive_tests_group_11
+WORKDIR /app/cognitive_tests_group_11
+
 # Copy the configuration files and scripts into the container
-COPY conf ./conf
+# Adjust paths according to the new WORKDIR
+COPY conf ../conf
+COPY scripts/entrypoint.sh ../scripts/
+RUN chmod +x ../scripts/entrypoint.sh
 
-# Copy the entrypoint script into the container and ensure it's executable
-COPY scripts/entrypoint.sh ./scripts/
-RUN chmod +x ./scripts/entrypoint.sh
+# Add a non-root user 'myuser' with no password, home directory, and specified user/group ids
+RUN adduser --disabled-password --gecos '' --uid 1000 myuser
 
-# Expose the port Jupyter will run on (for local testing; Heroku will assign its own port)
+# Change ownership of /app to 'myuser'
+RUN chown -R myuser:myuser /app
+
+# Switch to 'myuser'
+USER myuser
+
+# Expose the port Voila will run on (for local testing; Heroku will assign its own port)
 EXPOSE 8888
 
-# Run entrypoint.sh when the container launches which should start Jupyter
-CMD ["./scripts/entrypoint.sh"]
+# Run entrypoint.sh when the container launches which should start Voila
+CMD ["../scripts/entrypoint.sh"]

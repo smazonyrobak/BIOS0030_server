@@ -58,14 +58,20 @@ docker rm d98bccd37a96
 docker rmi -f cfe-jupyter:latest
 removing images
 
+###11. stopping all containers
+docker stop $(docker ps -aq)
+
+
+
 ######################From building docker image to running the server on Heroku########################
 1. heroku login
 2. heroku container:login
-3. docker build --platform linux/amd64 -t bios0030_server -f conf/Dockerfile .
-4. docker tag bios0030_server registry.heroku.com/bios0030-cogniapp/web
-5. docker push registry.heroku.com/bios0030-cogniapp/web
-6. heroku container:release web -a bios0030-cogniapp
-7. heroku open -a bios0030-cogniapp
+3. docker build --platform linux/amd64 -t bios0030-cogniapp -f conf/Dockerfile .
+4. docker run --env PORT=8888 -p 8888:8888 bios0030-cogniapp
+5. docker tag bios0030-cogniapp registry.heroku.com/bios0030-cogniapp/web
+6. docker push registry.heroku.com/bios0030-cogniapp/web
+7. heroku container:release web -a bios0030-cogniapp
+8. heroku open -a bios0030-cogniapp
 
 
 
